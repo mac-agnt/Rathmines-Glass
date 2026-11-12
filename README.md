@@ -1,6 +1,6 @@
 # Pulse — Harbour
 
-React build of the **Pulse v5 Harbour** design from Claude Design, the operations dashboard mocked up for Kilbride Group.
+React build of the **Pulse v5 Harbour** design, customised as an operations demo for **Rathmines Glass** (with Mirrors Dublin and Slim Glaze Heritage). Every customer, job, amount and event is illustrative demo data.
 
 Every page, theme and interaction from the design is here. Screens were checked against the original mockup and match pixel for pixel at 1440×900 and 1024×720.
 
@@ -16,11 +16,13 @@ npm run build      # type-check + production build into dist/
 
 | Area | Where |
 | --- | --- |
-| Pages: Home (Helios chat), Agents, Dashboard, Work, Records, Activity, Settings | `src/views/pages/` |
+| Pages kept from the template: Home (chat), Records (Ontology, Files, Contacts) | `src/views/pages/` |
 | Overlays: ⌘K palette, agent studio, Helios mini chat, work viewer, new record, background gallery | `src/views/overlays/` |
 | App frame: sidebar, top bar, notifications | `src/views/AppShell.tsx` |
 | State and behaviour | `src/logic/PulseLogic.js` |
-| Demo data (Kilbride Group) | `src/logic/data.js` |
+| Shell config (nav, ontology labels, sample files) | `src/logic/data.js` |
+| Operational demo store: typed fixtures, selectors, actions | `src/ops/` |
+| Module pages (Enquiries, Jobs, Schedule, Production, Finance, Dashboard, Work, Activity, Settings, Agents, Records tabs) | `src/ops/pages/` |
 | Agent avatar | `src/components/AgentFace.tsx` |
 | Theme tokens (Harbour, light and 11 more), animations | `src/styles/pulse.css` |
 
@@ -55,3 +57,10 @@ This regenerates:
 ## Fixed from the mockup
 
 In the mockup, the work viewer's wrapper `<div>` was never closed. As a result, the ⌘K palette, agent studio, new record dialog and background gallery could only appear while the work viewer was open. They now open on their own. The fix is applied in `tools/import-design.mjs`.
+
+## Rathmines Glass demo
+
+- **Scenario clock:** Thursday 12 November 2026, 09:00 Europe/Dublin (`src/ops/time.ts`). Every age, overdue and working-day figure uses it; the browser clock only drives the Home greeting.
+- **One store:** `src/ops/store.ts` holds every record. Modules read it through `src/ops/selectors.ts`; local actions write back and append to Activity. Changes persist in `localStorage` until **Settings → Experience → Reset demo**.
+- **Simulation only:** no backend, no external messages, no payments, no API credentials. Xero, Square, email and telephony are mocks.
+- Run on a free port with the `rathmines-dev` launch config (port 5183) if 5176 is taken.

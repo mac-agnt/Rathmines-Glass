@@ -1,0 +1,54 @@
+/* Rathmines Glass DEMO palette. Not a claimed brand guide: exact official hex
+   colours were not verified. Navy #18324B (active navigation), slate blue
+   #52748A (secondary), muted teal #258A88 (selected controls, sparingly).
+   Status: red #C64040, amber #B7791F, green #25805A, always paired with a word
+   and an icon. The dark theme lifts teal and status tones for text contrast. */
+
+[data-theme="rathmines"]{
+--ui:"Geist",system-ui,sans-serif;--mono:"Geist",system-ui,sans-serif;--fig-weight:600;--card-r:22px;--cta-r:999px;--chip-r:999px;--panel:#0e1419;--r-ctl:999px;--r-md:14px;--r-sm:10px;
+--kpi-band:#0f161c;--kpi-card:#141c23;--kpi-ink:#eef3f6;--kpi-dim:#93a3ad;--kpi-up:#cfe0ea;--kpi-down:#e58a8a;
+--rail-active:#18324B;--rail-active-ink:#e6f0f6;--rail-active-ring:inset 0 1px 0 rgba(255,255,255,.06);
+--bg:#0a0f13;--rail:#0c1217;--surface:#121a20;--surface-2:#17212a;
+--surface-strong:#141d24;--overlay:rgba(18,26,32,.97);--tooltip:#1b2731;--tooltip-ink:#eef3f6;
+--border:rgba(214,230,240,.08);--border-strong:rgba(214,230,240,.17);--card-shadow:0 1px 0 rgba(255,255,255,.03) inset;
+--ink:#eef3f6;--body:#cad6de;--dim:#98a8b3;--faint:#6f808b;--mid:#8596a1;
+--accent:#3cb3af;--on-accent:#03191a;--on-accent-2:rgba(3,25,26,.66);--on-accent-strong:rgba(3,25,26,.86);--on-accent-soft:rgba(3,25,26,.22);
+--accent-hover:#55c4c0;--accent-soft:rgba(60,179,175,.15);--accent-faint:rgba(60,179,175,.07);--accent-line:rgba(60,179,175,.34);
+--accent-fill:#2fa3a0;--accent-glow:none;
+--navy:#18324B;--navy-ink:#e6f0f6;--slate:#52748A;--teal:#3cb3af;
+--ok:#4fbf8b;--ok-soft:rgba(37,128,90,.22);--warn:#e0a24a;--warn-soft:rgba(183,121,31,.22);--bad:#ea7a7a;--bad-soft:rgba(198,64,64,.22);
+--bad-on-accent:#5c1418;--bad-on-accent-ink:#4e1014;
+--neutral:rgba(214,230,240,.22);--track:#22303a;--scrim:rgba(4,8,11,.64);
+--pill-bg:#18324B;--pill-ink:#eef3f6;--surface-faint:#0f171d;
+--glass-surface:#141d24;--glass-surface-2:#1a2630;--glass-border:rgba(214,230,240,.1);--glass-highlight:rgba(255,255,255,.05);--glass-shadow:rgba(0,0,0,.55);--glass-tint:rgba(82,116,138,.12);
+--flap:linear-gradient(178deg,#1a242c 0%,#151e25 49%,#10181e 51%,#172129 100%);--flap-hinge:rgba(0,0,0,.6);--flap-notch:#0a0f13;
+--glow-a:rgba(60,179,175,.06);--glow-b:rgba(82,116,138,.06);--grid:rgba(255,255,255,.02);--ease:cubic-bezier(.2,.8,.2,1);
+--bloom-a:rgba(60,179,175,.30);--bloom-b:rgba(82,116,138,.34);--bloom-c:rgba(24,50,75,.5);--hero-field:#121a20;--records-card:#121a20;--chip:#121a20;--chip-border:rgba(214,230,240,.09);
+--hero-grad:linear-gradient(180deg,#081016 0%,#0d2233 22%,#18324B 46%,#2b5170 64%,#132a3c 84%,#0a1015 100%)}
+
+[data-theme="rathmines-light"]{
+--ui:"Geist",system-ui,sans-serif;--mono:"Geist",system-ui,sans-serif;--fig-weight:600;--card-r:22px;--cta-r:999px;--chip-r:999px;--panel:#fbfcfd;--r-ctl:999px;--r-md:14px;--r-sm:10px;
+--kpi-band:#f3f6f8;--kpi-card:#ffffff;--kpi-ink:#14212c;--kpi-dim:#5c6c78;--kpi-up:#25805A;--kpi-down:#C64040;
+--rail-active:#18324B;--rail-active-ink:#ffffff;--rail-active-ring:none;
+--bg:#eef2f5;--rail:rgba(255,255,255,.6);--surface:#ffffff;--surface-2:#f4f7f9;
+--surface-strong:#ffffff;--overlay:rgba(255,255,255,.97);--tooltip:#18324B;--tooltip-ink:#ffffff;
+--border:rgba(24,50,75,.11);--border-strong:rgba(24,50,75,.24);--card-shadow:0 1px 2px rgba(24,50,75,.06);
+--ink:#14212c;--body:#33434f;--dim:#5c6c78;--faint:#7d8b96;--mid:#6c7b86;
+--accent:#18324B;--on-accent:#ffffff;--on-accent-2:rgba(255,255,255,.78);--on-accent-strong:rgba(255,255,255,.92);--on-accent-soft:rgba(255,255,255,.3);
+--accent-hover:#21425f;--accent-soft:rgba(24,50,75,.09);--accent-faint:rgba(24,50,75,.045);--accent-line:rgba(37,138,136,.45);
+--accent-fill:#18324B;--accent-glow:none;
+--navy:#18324B;--navy-ink:#ffffff;--slate:#52748A;--teal:#258A88;
+--ok:#25805A;--ok-soft:rgba(37,128,90,.11);--warn:#9a6417;--warn-soft:rgba(183,121,31,.13);--bad:#C64040;--bad-soft:rgba(198,64,64,.1);
+--bad-on-accent:#ffd9d4;--bad-on-accent-ink:#8c2118;
+--neutral:rgba(24,50,75,.26);--track:rgba(24,50,75,.1);--scrim:rgba(20,33,44,.32);
+--pill-bg:#18324B;--pill-ink:#ffffff;--surface-faint:#f7f9fb;
+--glass-surface:rgba(255,255,255,.72);--glass-surface-2:rgba(255,255,255,.86);--glass-border:rgba(24,50,75,.12);--glass-highlight:rgba(255,255,255,.7);--glass-shadow:rgba(20,33,44,.16);--glass-tint:rgba(82,116,138,.12);
+--flap:linear-gradient(178deg,#ffffff 0%,#f1f4f7 49%,#e7ecf0 51%,#f6f8fa 100%);--flap-hinge:rgba(24,50,75,.16);--flap-notch:var(--bg);
+--glow-a:rgba(37,138,136,.06);--glow-b:rgba(24,50,75,.04);--grid:rgba(24,50,75,.04);--ease:cubic-bezier(.2,.8,.2,1);
+--bloom-a:rgba(37,138,136,.22);--bloom-b:rgba(82,116,138,.24);--bloom-c:rgba(24,50,75,.16);--hero-field:#ffffff;--records-card:#ffffff;--chip:#ffffff;--chip-border:rgba(24,50,75,.13);
+--hero-grad:linear-gradient(180deg,#f3f7fa 0%,#dce8f0 20%,#b8cfde 42%,#8fb0c6 60%,#c6d8e4 80%,#eef3f6 100%)}
+
+[data-theme="rathmines-light"] [data-kpi-band]{--on-accent:#14212c;--on-accent-2:#5c6c78;--on-accent-strong:#33434f;--on-accent-soft:rgba(24,50,75,.08)}
+[data-theme="rathmines-light"] [data-kpi-band] [style*="var(--kpi-card)"]{box-shadow:0 0 0 1px rgba(24,50,75,.08),0 1px 3px rgba(24,50,75,.05)}
+[data-theme="rathmines"] [data-kpi-band]{--on-accent:#eef3f6;--on-accent-2:#7f909b;--on-accent-strong:#cad6de;--on-accent-soft:rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.06)}
+[data-theme="rathmines-light"] .ixc{background:#fff !important;border-color:rgba(24,50,75,.1) !important;box-shadow:0 1px 2px rgba(24,50,75,.06) !important}

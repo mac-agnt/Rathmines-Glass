@@ -4,42 +4,44 @@ import AgentFace from "../components/AgentFace";
 import NavThumb from "../components/NavThumb";
 import DashboardKpiBand from "./pages/DashboardKpiBand";
 import Home from "./pages/Home";
-import Work from "./pages/Work";
 import Records from "./pages/Records";
 import RecordsFiles from "./pages/RecordsFiles";
 import RecordsOntology from "./pages/RecordsOntology";
-import Activity from "./pages/Activity";
-import Settings from "./pages/Settings";
-import Dashboard from "./pages/Dashboard";
-import Agents from "./pages/Agents";
-import HeliosMini from "./overlays/HeliosMini";
-import WorkViewer from "./overlays/WorkViewer";
-import AgentStudio from "./overlays/AgentStudio";
 import NewRecordDialog from "./overlays/NewRecordDialog";
 import CommandPalette from "./overlays/CommandPalette";
 import BackgroundGallery from "./overlays/BackgroundGallery";
+import OpsRouter from "../ops/pages/Router";
+import Drawer from "../ops/Drawer";
+import { ModalHost } from "../ops/forms";
+import { Toasts } from "../ops/ui";
+import { ops, useOps } from "../ops/store";
+import { BRANDS, BRAND_IDS } from "../ops/fixtures";
+import type { BrandFilter } from "../ops/types";
 
 type Props = { v: any };
 
 export default function AppShell({ v }: Props) {
+  const { ui } = useOps();
+  const viewer = v.viewer || { initials: "D", name: "Danielle", role: "Owner / Office lead" };
   return (
     <>
     <div data-theme={v.theme} style={{"fontFamily":"var(--ui)","position":"relative","display":"flex","height":"100vh","overflow":"hidden","background":"var(--bg)","color":"var(--ink)",...v.rootVars}}>
       <div style={{"position":"absolute","width":"1px","height":"1px","overflow":"hidden","opacity":"0","pointerEvents":"none"}}>
         <AgentFace shape={"crown-pebble"} state={"idle"} tint={"#191c1f"} size={"1"} />
       </div>
-      <nav data-rail-nav="1" style={css(v.railOuter)}>
+      {v.mobile && v.mobileNav && <div className="ops-scrim" style={{ zIndex: 79 }} onClick={v.closeMobileNav} />}
+      <nav data-rail-nav="1" style={css(v.railOuter)} aria-label="Modules">
         <span style={css(v.railThumbStyle)} />
         <div style={css(cat(v.railRowStyle, "margin-bottom:22px"))}>
           <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"var(--accent-fill,var(--accent))","color":"var(--on-accent)","boxShadow":"var(--accent-glow,none)","cursor":"pointer","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}}>
-            {"K"}
+            {"RG"}
           </button>
           <span style={css(v.brandStyle)}>
             <span style={{"display":"block","fontSize":"15px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)"}}>
-              {"Kilbride Group"}
+              {"Rathmines Glass"}
             </span>
             <span style={{"display":"block","marginTop":"2px","fontSize":"9px","fontWeight":"500","letterSpacing":".16em","color":"var(--accent)"}}>
-              {"PULSE · OPERATIONS"}
+              {"PULSE · DEMO DATA"}
             </span>
           </span>
           {v.railOpen && (
@@ -92,18 +94,18 @@ export default function AppShell({ v }: Props) {
           <>
             <div style={{"margin":"6px 4px 4px","padding":"18px 18px 16px","background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"18px"}}>
               <div style={{"fontSize":"11px","fontWeight":"600","letterSpacing":".12em","color":"var(--faint)"}}>
-                {"SIGNED IN"}
+                {ui.viewAs === "danielle" ? "SIGNED IN · DEMO USER" : "PREVIEWING AS"}
               </div>
               <div style={{"display":"flex","alignItems":"center","gap":"11px","marginTop":"12px"}}>
                 <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"var(--accent-soft)","color":"var(--accent)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
-                  {"MK"}
+                  {viewer.initials}
                 </div>
                 <div style={{"minWidth":"0"}}>
                   <div style={{"fontSize":"17px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Martin Kilbride"}
+                    {viewer.name}
                   </div>
                   <div style={{"fontSize":"12.5px","color":"var(--faint)","marginTop":"2px","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Kilbride Group · Owner"}
+                    {viewer.role}
                   </div>
                 </div>
               </div>
@@ -143,14 +145,14 @@ export default function AppShell({ v }: Props) {
             </button>
             <div style={css(cat(v.railRowStyle, "margin-top:10px;padding:12px 10px;border-top:1px solid var(--border)"))}>
               <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"12px","background":"var(--surface-2)","border":"1px solid var(--border)","color":"var(--body)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"12px","fontWeight":"600","cursor":"pointer"}}>
-                {"MK"}
+                {viewer.initials}
               </div>
               <span style={css(v.brandStyle)}>
                 <span style={{"display":"block","fontSize":"14px","fontWeight":"500","color":"var(--ink)"}}>
-                  {"Martin Kilbride"}
+                  {viewer.name}
                 </span>
                 <span style={{"display":"block","marginTop":"2px","fontSize":"12px","color":"var(--faint)"}}>
-                  {"Kilbride Group · Owner"}
+                  {viewer.role}
                 </span>
               </span>
             </div>
@@ -165,7 +167,7 @@ export default function AppShell({ v }: Props) {
           {txt(v.hoverLabel?.hint)}
         </span>
       </span>
-      <main style={css(cat("--page-dy:", v.pageDy, ";position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;margin:16px 16px 16px 0;background:var(--panel,#0f1316);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.03) inset"))}>
+      <main style={css(cat("--page-dy:", v.pageDy, ";position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;margin:", v.mainMargin, ";background:var(--panel,#0f1316);border:1px solid var(--border);border-radius:28px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.03) inset"))}>
         {"\n"}
         {txt(v.pageSweepEl)}
         {"\n"}
@@ -176,9 +178,15 @@ export default function AppShell({ v }: Props) {
         )}
         <div style={{"position":"absolute","left":"0","right":"0","bottom":"0","height":"64px","zIndex":"3","pointerEvents":"none","maskImage":"linear-gradient(0deg,#000 0%,transparent 100%)","WebkitMaskImage":"linear-gradient(0deg,#000 0%,transparent 100%)","background":"linear-gradient(0deg,var(--bg) 0%,rgba(0,0,0,0) 100%)","opacity":".85"}} />
         <div style={css(v.headerFieldStyle)} />
-        <header style={{"position":"relative","zIndex":"4","flex":"none","width":"100%","padding":"18px 28px","boxSizing":"border-box","borderBottom":"1px solid var(--border)"}}>
+        <header style={{"position":"relative","zIndex":"4","flex":"none","width":"100%","padding":v.headerPad,"boxSizing":"border-box","borderBottom":"1px solid var(--border)"}}>
           <div style={css(v.headerPillStyle)}>
-            {v.isAgents && (
+            {v.mobile && (
+              <button type="button" className="ix2" onClick={v.toggleMobileNav} aria-label="Open navigation" aria-expanded={!!v.mobileNav}
+                style={{ flex: "none", width: 42, height: 42, border: 0, borderRadius: 999, background: "var(--surface-2)", color: "var(--ink)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" aria-hidden="true"><path d="M4 6h16 M4 12h16 M4 18h16" /></svg>
+              </button>
+            )}
+            {v.showAgentHeader && (
               <>
                 <div style={{"flex":"0 0 auto","display":"flex","alignItems":"center","gap":"9px","padding":"0 8px 0 5px"}}>
                   <AgentFace shape={v.agent?.shape} state={v.agent?.state} tint={v.agent?.tint} size={"30"} />
@@ -259,6 +267,12 @@ export default function AppShell({ v }: Props) {
                 )}
               </button>
             </div>
+            {v.page !== "Settings" && (
+              <select className="ops-brand-select" aria-label="Brand filter" value={ui.brand} onChange={e => ops.setBrand(e.target.value as BrandFilter)}>
+                <option value="ALL">All brands</option>
+                {BRAND_IDS.map(b => <option key={b} value={b}>{BRANDS[b].name}</option>)}
+              </select>
+            )}
             {v.showHint && (
               <>
                 <span style={{"flex":"0 1 auto","minWidth":"0","padding":"0 12px","fontFamily":"var(--mono)","fontSize":"9.5px","letterSpacing":"0.11em","color":"var(--faint)","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
@@ -311,10 +325,10 @@ export default function AppShell({ v }: Props) {
                         <>
                           <div style={{"minWidth":"0"}}>
                             <div style={{"fontSize":"12px","fontWeight":"500","lineHeight":"1.2","whiteSpace":"nowrap"}}>
-                              {"Martin Kilbride"}
+                              {viewer.name}
                             </div>
                             <div style={{"fontSize":"10.5px","color":"var(--faint)","lineHeight":"1.2"}}>
-                              {"Owner"}
+                              {viewer.role}
                             </div>
                           </div>
                         </>
@@ -353,7 +367,7 @@ export default function AppShell({ v }: Props) {
                 <div style={{"position":"relative","display":"flex","flexDirection":"column","gap":"7px","maxHeight":"min(58vh,440px)","overflowY":"auto","scrollbarWidth":"none"}}>
                   {arr(v.notifications).map((n: any, i3: number) => (
                     <Fragment key={i3}>
-                      <div className="ix9" style={css(n?.cardStyle)}>
+                      <div className="ix9" role="button" tabIndex={0} onClick={n?.open} onKeyDown={(e) => { if (e.key === "Enter") n?.open?.(); }} style={css(n?.cardStyle)}>
                         <span style={css(n?.washStyle)} />
                         <span style={css(n?.dotStyle)} />
                         <span style={{"position":"relative","flex":"1","minWidth":"0","display":"block"}}>
@@ -376,10 +390,10 @@ export default function AppShell({ v }: Props) {
                 </div>
                 <div style={{"position":"relative","display":"flex","alignItems":"center","gap":"9px","padding":"11px 6px 4px","animation":"notifRow .44s cubic-bezier(.16,1,.3,1) 420ms both"}}>
                   <span style={{"flex":"1","minWidth":"0","fontFamily":"var(--mono)","fontSize":"9px","letterSpacing":"0.1em","color":"var(--faint)","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}}>
-                    {"EVERY EVENT IS WRITTEN TO THE AUDIT LOG"}
+                    {"DEMO DATA · EVERY LOCAL ACTION IS IN ACTIVITY"}
                   </span>
                   <button className="ixa" onClick={v.closeNotifs} style={{"flex":"none","height":"28px","padding":"0 13px","border":"1px solid var(--border)","borderRadius":"var(--r-ctl,10px)","background":"var(--surface-2)","color":"var(--body)","fontSize":"12px","cursor":"pointer","transition":"border-color .2s var(--ease),color .2s var(--ease)"}}>
-                    {"Mark all read"}
+                    {"Close"}
                   </button>
                 </div>
               </div>
@@ -388,8 +402,15 @@ export default function AppShell({ v }: Props) {
         )}
         {v.isDashboard && <DashboardKpiBand v={v} />}
         <div data-scroll-main="1" style={{"flex":"1","minHeight":"0","overflowY":"auto","overflowX":"hidden","scrollbarWidth":"none"}}>
+          {ui.viewAs !== "danielle" && (
+            <div className="ops-preview-banner" role="status">
+              <strong style={{ fontWeight: 600 }}>Previewing as {viewer.name}</strong>
+              <span>({viewer.role}). Frontend demonstration only, not access control.</span>
+              <button type="button" className="ops-btn sm" style={{ marginLeft: "auto" }} onClick={() => ops.setViewAs("danielle")}>Exit preview</button>
+            </div>
+          )}
           {v.isChat && <Home v={v} />}
-          {v.isWork && <Work v={v} />}
+          <OpsRouter v={v} />
           {v.isRecords && <Records v={v} />}
           {v.rec?.isContacts && (
             <>
@@ -471,7 +492,7 @@ export default function AppShell({ v }: Props) {
           )}
           {v.rec?.isFiles && <RecordsFiles v={v} />}
           {v.rec?.isOntology && <RecordsOntology v={v} />}
-          {v.isActivity && <Activity v={v} />}
+
           {v.act?.detailOpen && (
             <>
               <div onClick={v.act?.closeDetail} style={{"position":"fixed","inset":"0","zIndex":"68","background":"var(--scrim)","backdropFilter":"blur(6px)","display":"flex","justifyContent":"flex-end"}}>
@@ -575,9 +596,7 @@ export default function AppShell({ v }: Props) {
               </div>
             </>
           )}
-          {v.isSettings && <Settings v={v} />}
-          {v.isDashboard && <Dashboard v={v} />}
-          {v.isAgents && <Agents v={v} />}
+
         </div>
       </main>
       {v.showFab && (
@@ -594,9 +613,6 @@ export default function AppShell({ v }: Props) {
           </button>
         </>
       )}
-      {v.miniOpen && <HeliosMini v={v} />}
-      {v.workViewer?.open && <WorkViewer v={v} />}
-      {v.builderOpen && <AgentStudio v={v} />}
       {v.detail?.open && (
         <>
           <div onClick={v.detail?.close} style={{"position":"fixed","inset":"0","zIndex":"66","background":"var(--scrim)","backdropFilter":"blur(6px)","display":"flex","justifyContent":"flex-end"}}>
@@ -820,6 +836,9 @@ export default function AppShell({ v }: Props) {
       {v.newRec?.open && <NewRecordDialog v={v} />}
       {v.paletteOpen && <CommandPalette v={v} />}
       {v.bgGallery?.open && <BackgroundGallery v={v} />}
+      <Drawer />
+      <ModalHost />
+      <Toasts />
     </div>
     </>
   );
